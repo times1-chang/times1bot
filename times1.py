@@ -1,14 +1,12 @@
-#導入 Discord.py
 import discord
 import asyncio
 from discord.ext import commands
+import os
 #client 是我們與 Discord 連結的橋樑
 intents = discord.Intents.default()
 intents.members = True
 bot = commands.Bot(command_prefix= '>', intents = intents)
-#調用 event 函式庫
 @bot.event
-#當機器人完成啟動時
 async def on_ready():
     print('目前登入身份：', bot.user)
 @bot.event
@@ -22,9 +20,7 @@ async def on_member_remove(member):
     leavechannel = bot.get_channel(956938642641801287)
     leavemsg = await leavechannel.send(member.mention+' 含笑而去~~~\n讓我們祝他一路好走!')
 @bot.event
-#當有訊息時
 async def on_message(message):
-    #排除自己的訊息，避免陷入無限循環
     if message.author == bot.user:
         return
     if message.content==f"<@!{bot.user.id}>" or message.content==f"<@{bot.user.id}>":
@@ -58,4 +54,4 @@ async def on_message(message):
 #@client.event
 #async def on_reaction_add(reaction, user):
 #    if 
-bot.run('OTU2NTM0NzAwNjU3MjIxNjU0.YjxoXA.BlDOvU0XQoRfAla9M_XJbQ5iXC4')
+bot.run(os.getenv('TOKEN'))
