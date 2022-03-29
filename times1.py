@@ -51,6 +51,12 @@ async def on_message(message):
         tmpmsg = await message.channel.send(str(message.author.name)+"不要瞎掰好嗎")
         await asyncio.sleep(3)
         await tmpmsg.delete()
+@bot.command()
+async def ping(ctx):
+    await ctx.send(f'{round(bot.lantency*1000, 2)}ms')
+
+
+
 #@client.event
 #async def on_reaction_add(reaction, user):
 #    if 
