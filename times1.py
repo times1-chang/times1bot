@@ -2,6 +2,10 @@ import discord
 import asyncio
 from discord.ext import commands
 import os
+import json
+
+with open('setting.json','r', encoding="utf8") as setfile :
+    setdata = json.load(setfile)
 #client 是我們與 Discord 連結的橋樑
 intents = discord.Intents.default()
 intents.members = True
@@ -12,7 +16,7 @@ async def on_ready():
 @bot.event
 async def on_member_join(member):
     print(f'{member}join!')
-    joinchannel = bot.get_channel(956529975375302666)
+    joinchannel = bot.get_channel(setdata['joinchannel'])
     await joinchannel.send(member.mention+' 歡迎加入!')
 @bot.event
 async def on_member_remove(member):
@@ -33,7 +37,7 @@ async def on_message(message):
         await asyncio.sleep(3)
         await delmsg.delete()
         await message.channel.send("對不起我不該這麼兇\n"+message.author.name+"你剛剛說什麼?")
-    if 'ping' in message.content:
+    if message.content == 'ping':
         await message.channel.send('pong')
     if "沒用" in message.content:
         await message.channel.send("屁啦!")
