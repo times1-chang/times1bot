@@ -61,4 +61,4 @@ async def on_message(message):
         tmpmsg = await message.channel.send(str(message.author.name)+"不要瞎掰好嗎")
         await asyncio.sleep(3)
         await tmpmsg.delete()
-bot.run(os.getenv('TOKEN'))
+
