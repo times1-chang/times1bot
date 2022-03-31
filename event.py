@@ -1,28 +1,34 @@
+
 import discord
 import asyncio
 from discord.ext import commands
 import os
 import json
 
+setdata = ''
 with open('setting.json','r', encoding="utf8") as setfile :
     setdata = json.load(setfile)
 #client 是我們與 Discord 連結的橋樑
 intents = discord.Intents.default()
 intents.members = True
-bot = commands.Bot(command_prefix= '>', intents = intents)
+bot = discord.Client(intents = intents)
+
 @bot.event
 async def on_ready():
     print('目前登入身份：', bot.user)
+
 @bot.event
 async def on_member_join(member):
     print(f'{member}join!')
     joinchannel = bot.get_channel(setdata['joinchannel'])
     await joinchannel.send(member.mention+' 歡迎加入!')
+
 @bot.event
 async def on_member_remove(member):
     print(f'{member}leave~')
     leavechannel = bot.get_channel(956938642641801287)
     leavemsg = await leavechannel.send(member.mention+' 含笑而去~~~\n讓我們祝他一路好走!')
+
 @bot.event
 async def on_message(message):
     if message.author == bot.user:
@@ -42,26 +48,17 @@ async def on_message(message):
     if "沒用" in message.content:
         await message.channel.send("屁啦!")
     if message.content.startswith('說'):
-      #分割訊息成兩份
-      tmp = message.content.split(" ",2)
-      #如果分割後串列長度只有1
-      if len(tmp) == 1:
-        await message.channel.send("你要我說什麼啦？")
-      else:
-        await message.channel.send(tmp[1])
+        #分割訊息成兩份
+        tmp = message.content.split(" ",2)
+        #如果分割後串列長度只有1
+        if len(tmp) == 1:
+            await message.channel.send("你要我說什麼啦？")
+        else:
+            await message.channel.send(tmp[1])
     if "否" in message.content:
         await message.channel.send("明明就是")
     if "我超弱" in message.content:
         tmpmsg = await message.channel.send(str(message.author.name)+"不要瞎掰好嗎")
         await asyncio.sleep(3)
         await tmpmsg.delete()
-@bot.command()
-async def ping(ctx):
-    await ctx.send(f'{round(bot.lantency*1000, 2)}ms')
-
-
-
-#@client.event
-#async def on_reaction_add(reaction, user):
-#    if 
 bot.run(os.getenv('TOKEN'))
