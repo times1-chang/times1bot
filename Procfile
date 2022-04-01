@@ -1,1 +1,1 @@
-worker: python3 times1.py
+worker: python3 commands.py
