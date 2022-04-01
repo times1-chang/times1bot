@@ -29,7 +29,7 @@ class EventClass(Cog_Extension):
         print(f'{member}leave~')
         leavechannel = bot.get_channel(956938642641801287)
         leavemsg = await leavechannel.send(member.mention+' 含笑而去~~~\n讓我們祝他一路好走!')
-
+    
     @bot.event
     async def on_message(message):
         if message.author == bot.user:
@@ -62,11 +62,10 @@ class EventClass(Cog_Extension):
             tmpmsg = await message.channel.send(str(message.author.name)+"不要瞎掰好嗎")
             await asyncio.sleep(3)
             await tmpmsg.delete()
-
+        await bot.process_commands(message)
 def setup(bot):
     bot.add_cog(EventClass(bot))
 for filename in os.listdir('.'):
     if filename.endswith('.py') and filename != 'main.py' and filename != 'classes.py':
-        print(filename)
         bot.load_extension(filename[:-3])
 bot.run(os.getenv('TOKEN'))
