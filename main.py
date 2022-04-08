@@ -5,6 +5,10 @@ import os
 import json
 import random
 from classes import Cog_Extension
+from datetime import datetime, time, timedelta
+import requests
+from bs4 import BeautifulSoup
+
 
 setdata = ''
 with open('setting.json','r', encoding="utf8") as setfile :
@@ -17,8 +21,19 @@ bot = commands.Bot(command_prefix='>', intents = intents)
 @bot.event
 async def on_ready():
     print('目前登入身份：', bot.user)
-
-for filename in os.listdir('.'):
-    if filename.endswith('.py') and filename != 'main.py' and filename != 'classes.py':
-        bot.load_extension(filename[:-3])
+    count = 5;
+    erochannel = bot.get_channel(setdata['erochannel'])
+    for filename in os.listdir('.'):
+        if filename.endswith('.py') and filename != 'main.py' and filename != 'classes.py':
+            bot.load_extension(filename[:-3])
+    while True:
+        url = f'https://acg.lspimg.com/archives/{count}/'
+        html = requests.get(url)
+        soup = BeautifulSoup(html.text, "html.parser")
+        results = soup.find_all("img", class_="post-item-img", limit=5)
+        image_links = list(result["src"] for result in results)
+        for link in image_links:
+            await erochannel.send(link)
+        count += 1;
+        await asyncio.sleep(24*60*60)
 bot.run(os.getenv('TOKEN'))

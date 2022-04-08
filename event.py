@@ -5,6 +5,7 @@ import os
 import json
 import random
 from classes import Cog_Extension
+from datetime import datetime, time, timedelta
 
 setdata = ''
 with open('setting.json','r', encoding="utf8") as setfile :
@@ -58,6 +59,9 @@ class EventClass(Cog_Extension):
             await asyncio.sleep(3)
             await tmpmsg.delete()
         await self.bot.process_commands(message)
+
+
+
 def setup(bot):
     bot.add_cog(EventClass(bot))
 
