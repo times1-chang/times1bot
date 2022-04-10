@@ -21,7 +21,7 @@ bot = commands.Bot(command_prefix='>', intents = intents)
 @bot.event
 async def on_ready():
     print('目前登入身份：', bot.user)
-    count = 5;
+    count = 7;
     erochannel = bot.get_channel(setdata['erochannel'])
     for filename in os.listdir('.'):
         if filename.endswith('.py') and filename != 'main.py' and filename != 'classes.py':

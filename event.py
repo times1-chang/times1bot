@@ -58,7 +58,7 @@ class EventClass(Cog_Extension):
             tmpmsg = await message.channel.send(str(message.author.name)+"不要瞎掰好嗎")
             await asyncio.sleep(3)
             await tmpmsg.delete()
-        await self.bot.process_commands(message)
+        #await self.bot.process_commands(message)
 
 
 
