@@ -31,7 +31,7 @@ async def on_ready():
         hour = now.strftime('%H')
         minute = now.strftime('%M')
         print(hour)
-        if hour=="09" and minute =="00" :
+        if hour=="01" and minute =="00" :
             print("send!")
             mainhtml = requests.get("https://acg.lspimg.com")
             mainsoup = BeautifulSoup(mainhtml.text, "html.parser")
