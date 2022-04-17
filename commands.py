@@ -27,6 +27,32 @@ class CmdsClass(Cog_Extension):
     async def usefulpic(self, ctx):
         random_usflpic = random.choice(setdata['usflpic'])
         await ctx.send(random_usflpic)
+    '''
+    @commands.command()
+    async def roll(self, ctx, arg1, arg2):
+        if (arg1 and arg2) and int(arg1)<=int(arg2):
+            await ctx.send(random.randint(int(arg1),int(arg2)))
+        elif (arg1 and arg2):
+            await ctx.send("Error")
+        elif not(arg1 and arg2):
+            await ctx.send(random.randint(1,30))
+        else:
+            await ctx.send(random.randint(1,30))
+    '''
+
+    @commands.command()
+    async def roll(self, ctx):
+        msg = ctx.message.content.split(" ",2)
+        if len(msg)==1:
+            await ctx.send(random.randint(1, 30))
+        elif len(msg)==3 and msg[1]<=msg[2]:
+            await ctx.send(random.randint(int(msg[1]), int(msg[2])))
+        else:
+            await ctx.send("Error")
+
+    @commands.command()
+    async def randh(self, ctx):
+        await ctx.send(random.randint(100000, 400000))
     #@client.event
 #async def on_reaction_add(reaction, user)
 def setup(bot):

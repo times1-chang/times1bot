@@ -38,7 +38,7 @@ async def on_ready():
             newlink = mainsoup.find("a", class_="item-link")
             html = requests.get(newlink["href"])
             soup = BeautifulSoup(html.text, "html.parser")
-            results = soup.find_all("img", class_="post-item-img", limit=5)
+            results = soup.find_all("img", class_="post-item-img", limit=10)
             image_links = list(result["src"] for result in results)
             for link in image_links:
                 await erochannel.send(link)

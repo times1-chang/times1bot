@@ -45,7 +45,7 @@ class EventClass(Cog_Extension):
             await message.channel.send("屁啦!")
         if message.content.startswith('說'):
             #分割訊息成兩份
-            tmp = message.content.split(" ",2)
+            tmp = message.content.split(" ",1)
             #如果分割後串列長度只有1
             if len(tmp) == 1:
                 await message.channel.send("你要我說什麼啦？")
