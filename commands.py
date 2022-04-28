@@ -24,7 +24,7 @@ class CmdsClass(Cog_Extension):
         await ctx.send(random_vcldpic)
 
     @commands.command()
-    async def usefulpic(self, ctx):
+    async def meme(self, ctx):
         random_usflpic = random.choice(setdata['usflpic'])
         await ctx.send(random_usflpic)
     '''
