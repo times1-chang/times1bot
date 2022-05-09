@@ -27,12 +27,15 @@ class EventClass(Cog_Extension):
     
     @commands.Cog.listener()
     async def on_message(self, message):
+        print(message.author.id)
         if message.author == self.bot.user:
             return
         if message.author.id =="563290210813739010" :
             await message.channel.send("這是777")
+            await asyncio.sleep(10)
         if message.author.id == "888749633466171413":
             await message.channel.send("這是旺仔")
+            await asyncio.sleep(10)
         if message.content==f"<@!{self.bot.user.id}>" or message.content==f"<@{self.bot.user.id}>":
             delmsg = await message.channel.send(message.author.mention+"tag尛")
             await asyncio.sleep(3)
