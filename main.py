@@ -8,8 +8,9 @@ from classes import Cog_Extension
 from datetime import datetime, time, timedelta
 import requests
 from bs4 import BeautifulSoup
+import urllib3
 
-
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 setdata = ''
 with open('setting.json','r', encoding="utf8") as setfile :
     setdata = json.load(setfile)
@@ -25,8 +26,27 @@ async def on_ready():
     erochannel = bot.get_channel(setdata['erochannel'])
     for filename in os.listdir('.'):
         if filename.endswith('.py') and filename != 'main.py' and filename != 'classes.py':
-            bot.load_extension(filename[:-3])
+            bot.load_extension(filename[:-3])    
     while True:
+        now = datetime.now()
+        hour = now.strftime('%H')
+        minute = now.strftime('%M')
+        print(hour)
+        if hour=="11" and minute =="00" :
+            print("send!")
+            mainhtml = requests.get("https://gelbooru.com/index.php?page=post&s=list&tags=all")
+            mainsoup = BeautifulSoup(mainhtml.text, "html.parser")
+            newlink = list(mainsoup.find_all("article", class_="thumbnail-preview", limit = 10))
+            for i in newlink:
+                linktobig = i.find("a")
+                html = requests.get(linktobig["href"])
+                soup = BeautifulSoup(html.text, "html.parser")
+                result = soup.find("img", class_="fit-width")
+                await erochannel.send(result["src"])
+        await asyncio.sleep(60)
+bot.run(os.getenv('TOKEN'))
+
+'''
         now = datetime.now()
         hour = now.strftime('%H')
         minute = now.strftime('%M')
@@ -42,5 +62,4 @@ async def on_ready():
             image_links = list(result["src"] for result in results)
             for link in image_links:
                 await erochannel.send(link)
-        await asyncio.sleep(60)
-bot.run(os.getenv('TOKEN'))
+'''

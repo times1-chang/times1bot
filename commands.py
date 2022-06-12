@@ -6,6 +6,10 @@ import json
 import random
 from classes import Cog_Extension
 from datetime import datetime, timezone, timedelta
+import requests
+from bs4 import BeautifulSoup
+
+cookies = {'fringeBenefits': 'yup'}
 setdata = ''
 tz = timezone(timedelta(hours=+8))
 with open('setting.json','r', encoding="utf8") as setfile :
@@ -17,11 +21,13 @@ class CmdsClass(Cog_Extension):
         embed.set_author(name="乘一", icon_url="https://64.media.tumblr.com/2061fee2529724d19321133f8b0e767d/e870751fd1d65c5f-c7/s400x600/d5020280b116871dbf935ac2837991ff3bdcd72d.jpg")
         embed.set_thumbnail(url="https://d3mww1g1pfq2pt.cloudfront.net/Image/ckjconmb94vs408761xsx2ywp/1625477488941.jpg")
         embed.add_field(name=">ping", value="check network latency", inline=False)
-        embed.add_field(name=">roll value1 value2", value="return random number from value1~value2 (default is 1~30)", inline=False)
+        embed.add_field(name=">roll <value1> <value2>", value="return random number from value1~value2 (default is 1~30)", inline=False)
         embed.add_field(name=">meme", value="return random meme", inline=False)
         embed.add_field(name=">neko", value="return random catgirl picture", inline=False)
         embed.add_field(name=">vocaloid", value="return random vocaloid picture", inline=False)
         embed.add_field(name=">randh", value="return random adult comic", inline=False)
+        embed.add_field(name=">hpic <r/rand/random>", value="return random adult pic", inline=False)
+        embed.add_field(name=">hpic <tag>", value="return a pic of that tag", inline=False)
         await ctx.send(embed=embed)
     @commands.command()
     async def ping(self, ctx):
@@ -67,6 +73,36 @@ class CmdsClass(Cog_Extension):
     @commands.command()
     async def randh(self, ctx):
         await ctx.send(random.randint(100000, 400000))
+
+    @commands.command()
+    async def hpic(self, ctx, tag:str):
+        if tag == "r" or tag=="random" or tag=="rand" :
+            print("randomsend!")
+            mainhtml = requests.get("https://gelbooru.com/index.php?page=post&s=random")
+            mainsoup = BeautifulSoup(mainhtml.text, "html.parser")
+            link = mainsoup.find("meta", property="og:image")
+            await ctx.send(link["content"])
+        else:
+            mainhtml = requests.get(f"https://gelbooru.com/index.php?page=post&s=list&tags={tag}", cookies=cookies)
+            mainsoup = BeautifulSoup(mainhtml.text, "html.parser")
+            try:
+                newlink = mainsoup.find("article", class_="thumbnail-preview")
+            except:
+                await ctx.send("No Result!")
+            else:
+                try:
+                    linktobig = newlink.find("a")
+                except:
+                    await ctx.send("No Result!")
+                else:
+                    html = requests.get(linktobig["href"], cookies=cookies)
+                    soup = BeautifulSoup(html.text, "html.parser")
+                    try:
+                        result = soup.find("img", class_="fit-width")
+                    except:
+                        await ctx.send("No Result!")
+                    else:
+                        await ctx.send(result["src"])
     #@client.event
 #async def on_reaction_add(reaction, user)
 def setup(bot):
