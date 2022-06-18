@@ -33,16 +33,14 @@ async def on_ready():
         minute = now.strftime('%M')
         print(hour)
         if hour=="11" and minute =="00" :
+            arch = random.randint(5,766)
             print("send!")
-            mainhtml = requests.get("https://gelbooru.com/index.php?page=post&s=list&tags=all")
+            mainhtml = requests.get(f"https://acg.lspimg.com/archives/{arch}/")
             mainsoup = BeautifulSoup(mainhtml.text, "html.parser")
-            newlink = list(mainsoup.find_all("article", class_="thumbnail-preview", limit = 10))
-            for i in newlink:
-                linktobig = i.find("a")
-                html = requests.get(linktobig["href"])
-                soup = BeautifulSoup(html.text, "html.parser")
-                result = soup.find("img", class_="fit-width")
-                await erochannel.send(result["src"])
+            results = mainsoup.find_all("img", class_="post-item-img", limit=10)
+            image_links = list(result["src"] for result in results)
+            for link in image_links:
+                await erochannel.send(link)
         await asyncio.sleep(60)
 bot.run(os.getenv('TOKEN'))
 
@@ -62,4 +60,20 @@ bot.run(os.getenv('TOKEN'))
             image_links = list(result["src"] for result in results)
             for link in image_links:
                 await erochannel.send(link)
+        
+        now = datetime.now()
+        hour = now.strftime('%H')
+        minute = now.strftime('%M')
+        print(hour)
+        if hour=="11" and minute =="00" :
+            print("send!")
+            mainhtml = requests.get("https://gelbooru.com/index.php?page=post&s=list&tags=all")
+            mainsoup = BeautifulSoup(mainhtml.text, "html.parser")
+            newlink = list(mainsoup.find_all("article", class_="thumbnail-preview", limit = 10))
+            for i in newlink:
+                linktobig = i.find("a")
+                html = requests.get(linktobig["href"])
+                soup = BeautifulSoup(html.text, "html.parser")
+                result = soup.find("img", class_="fit-width")
+                await erochannel.send(result["src"])
 '''
