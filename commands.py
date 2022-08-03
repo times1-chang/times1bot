@@ -110,7 +110,7 @@ class CmdsClass(Cog_Extension):
         elif num=="rand" or num=="r" or num=="random":
             await ctx.send(f'https://nhentai.net/g/{random.randint(100000,400000)}')
         else:
-            ctx.send("I don't know what are you doing.\nUse >help command to see more information")
+            await ctx.send("I don't know what are you doing.\nUse >help command to see more information")
 
     #@client.event
 #async def on_reaction_add(reaction, user)
