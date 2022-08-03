@@ -33,23 +33,6 @@ async def on_ready():
         minute = now.strftime('%M')
         print(hour)
         if hour=="11" and minute =="00" :
-            arch = random.randint(5,766)
-            print("send!")
-            mainhtml = requests.get(f"https://acg.lspimg.com/archives/{arch}/")
-            mainsoup = BeautifulSoup(mainhtml.text, "html.parser")
-            results = mainsoup.find_all("img", class_="post-item-img", limit=10)
-            image_links = list(result["src"] for result in results)
-            for link in image_links:
-                await erochannel.send(link)
-        await asyncio.sleep(60)
-bot.run(os.getenv('TOKEN'))
-
-'''
-        now = datetime.now()
-        hour = now.strftime('%H')
-        minute = now.strftime('%M')
-        print(hour)
-        if hour=="11" and minute =="00" :
             print("send!")
             mainhtml = requests.get("https://acg.lspimg.com")
             mainsoup = BeautifulSoup(mainhtml.text, "html.parser")
@@ -60,6 +43,10 @@ bot.run(os.getenv('TOKEN'))
             image_links = list(result["src"] for result in results)
             for link in image_links:
                 await erochannel.send(link)
+        await asyncio.sleep(60)
+bot.run(os.getenv('TOKEN'))
+
+'''
         
         now = datetime.now()
         hour = now.strftime('%H')
@@ -76,4 +63,18 @@ bot.run(os.getenv('TOKEN'))
                 soup = BeautifulSoup(html.text, "html.parser")
                 result = soup.find("img", class_="fit-width")
                 await erochannel.send(result["src"])
+
+        now = datetime.now()
+        hour = now.strftime('%H')
+        minute = now.strftime('%M')
+        print(hour)
+        if hour=="11" and minute =="00" :
+            arch = random.randint(5,766)
+            print("send!")
+            mainhtml = requests.get(f"https://acg.lspimg.com/archives/{arch}/")
+            mainsoup = BeautifulSoup(mainhtml.text, "html.parser")
+            results = mainsoup.find_all("img", class_="post-item-img", limit=10)
+            image_links = list(result["src"] for result in results)
+            for link in image_links:
+                await erochannel.send(link)
 '''
