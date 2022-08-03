@@ -26,8 +26,10 @@ class CmdsClass(Cog_Extension):
         embed.add_field(name=">neko", value="return random catgirl picture", inline=False)
         embed.add_field(name=">vocaloid", value="return random vocaloid picture", inline=False)
         embed.add_field(name=">randh", value="return random adult comic", inline=False)
-        embed.add_field(name=">hpic <r/rand/random>", value="return random adult pic", inline=False)
         embed.add_field(name=">hpic <tag>", value="return a pic of that tag", inline=False)
+        embed.add_field(name=">hpic <r/rand/random>", value="return random adult pic", inline=False)
+        embed.add_field(name=">hcomic <six-digit number>", value="return a adult comic", inline=False)
+        embed.add_field(name=">hcomic <r/rand/random>", value="return random adult comic", inline=False)
         await ctx.send(embed=embed)
     @commands.command()
     async def ping(self, ctx):
