@@ -107,7 +107,7 @@ class CmdsClass(Cog_Extension):
     async def hcomic(self, ctx, num: str):
         if len(num)==6 and num.isdigit():
             await ctx.send(f"https://nhentai.net/g/{num}")
-        if num=="rand" or num=="r" or num=="random":
+        elif num=="rand" or num=="r" or num=="random":
             await ctx.send(f'https://nhentai.net/g/{random.randint(100000,400000)}')
         else:
             ctx.send("I don't know what are you doing.\nUse >help command to see more information")
