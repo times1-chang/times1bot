@@ -113,6 +113,28 @@ class CmdsClass(Cog_Extension):
             await ctx.send(f'https://nhentai.net/g/{random.randint(100000,400000)}')
         else:
             await ctx.send("I don't know what you are doing.\nUse ***>help*** command to see more information")
+    @commands.commands()
+    async def vote(self,ctx,msg:str):
+        msgarr = msg.split("/")
+        msgcnt = len(msgarr)-1
+        question = msgarr[0]
+        votemsg = f"大家來投票啦!\n問題:{question}\n"
+        if msgcnt == 0:
+            await votemsg.add_reaction("⭕")
+            await votemsg.add_reaction("❌")
+        if msgcnt = 10 :
+            votemsg = f"大家來投票啦!\n問題:{question}\n:one:={msgarr[1]}\n:two:={msgarr[2]}\n:three:={msgarr[3]}\n:four:={msgarr[4]}\n:five:={msgarr[5]}\n:six:={msgarr[6]}\n:seven:={msgarr[7]}\n:eight:={msgarr[8]}\n:nine:={msgarr[9]}\n:keycap_ten:={msgarr[10]}"
+            await ctx.send(votemsg)
+            await votemsg.add_reaction("/:one:")
+            await votemsg.add_reaction("/:two:")
+            await votemsg.add_reaction("/:three:")
+            await votemsg.add_reaction("/:four:")
+            await votemsg.add_reaction("/:five:")
+            await votemsg.add_reaction("/:six:")
+            await votemsg.add_reaction("/:seven:")
+            await votemsg.add_reaction("/:eight:")
+            await votemsg.add_reaction("/:nine:")
+            await votemsg.add_reaction("/:ten:")
 
     #@client.event
 #async def on_reaction_add(reaction, user)
