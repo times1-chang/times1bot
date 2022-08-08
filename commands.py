@@ -120,6 +120,7 @@ class CmdsClass(Cog_Extension):
         question = msgarr[0]
         votemsg = f"大家來投票啦!\n問題:{question}\n"
         if msgcnt == 0:
+            await ctx.send(votemsg)
             await votemsg.add_reaction("⭕")
             await votemsg.add_reaction("❌")
         if msgcnt = 10 :
