@@ -113,30 +113,103 @@ class CmdsClass(Cog_Extension):
             await ctx.send(f'https://nhentai.net/g/{random.randint(100000,400000)}')
         else:
             await ctx.send("I don't know what you are doing.\nUse ***>help*** command to see more information")
-    @commands.commands()
-    async def vote(self,ctx,msg:str):
-        msgarr = msg.split("/")
+    @commands.command()
+    async def vote(self,ctx):
+        msgarr = ctx.message.content.split("/")
         msgcnt = len(msgarr)-1
-        question = msgarr[0]
-        votemsg = f"大家來投票啦!\n問題:{question}\n"
+        questionarr = msgarr[0].split(" ",1)
+        question = questionarr[1]
+        votestr = f"大家來投票啦!\n問題:{question}\n"
         if msgcnt == 0:
-            await ctx.send(votemsg)
+            votemsg = await ctx.send(votestr)
             await votemsg.add_reaction("⭕")
             await votemsg.add_reaction("❌")
-        if msgcnt = 10 :
-            votemsg = f"大家來投票啦!\n問題:{question}\n:one:={msgarr[1]}\n:two:={msgarr[2]}\n:three:={msgarr[3]}\n:four:={msgarr[4]}\n:five:={msgarr[5]}\n:six:={msgarr[6]}\n:seven:={msgarr[7]}\n:eight:={msgarr[8]}\n:nine:={msgarr[9]}\n:keycap_ten:={msgarr[10]}"
-            await ctx.send(votemsg)
-            await votemsg.add_reaction("/:one:")
-            await votemsg.add_reaction("/:two:")
-            await votemsg.add_reaction("/:three:")
-            await votemsg.add_reaction("/:four:")
-            await votemsg.add_reaction("/:five:")
-            await votemsg.add_reaction("/:six:")
-            await votemsg.add_reaction("/:seven:")
-            await votemsg.add_reaction("/:eight:")
-            await votemsg.add_reaction("/:nine:")
-            await votemsg.add_reaction("/:ten:")
-
+        if msgcnt == 10 :
+            votestr = f"大家來投票啦!\n問題:{question}\n:one:={msgarr[1]}\n:two:={msgarr[2]}\n:three:={msgarr[3]}\n:four:={msgarr[4]}\n:five:={msgarr[5]}\n:six:={msgarr[6]}\n:seven:={msgarr[7]}\n:eight:={msgarr[8]}\n:nine:={msgarr[9]}\n:keycap_ten:={msgarr[10]}"
+            votemsg = await ctx.send(votestr)
+            await votemsg.add_reaction("1️⃣")
+            await votemsg.add_reaction("2️⃣")
+            await votemsg.add_reaction("3️⃣")
+            await votemsg.add_reaction("4️⃣")
+            await votemsg.add_reaction("5️⃣")
+            await votemsg.add_reaction("6️⃣")
+            await votemsg.add_reaction("7️⃣")
+            await votemsg.add_reaction("8️⃣")
+            await votemsg.add_reaction("9️⃣")
+            await votemsg.add_reaction("🔟")
+        if msgcnt == 9 :
+            votestr = f"大家來投票啦!\n問題:{question}\n:one:={msgarr[1]}\n:two:={msgarr[2]}\n:three:={msgarr[3]}\n:four:={msgarr[4]}\n:five:={msgarr[5]}\n:six:={msgarr[6]}\n:seven:={msgarr[7]}\n:eight:={msgarr[8]}\n:nine:={msgarr[9]}"
+            votemsg = await ctx.send(votestr)
+            await votemsg.add_reaction("1️⃣")
+            await votemsg.add_reaction("2️⃣")
+            await votemsg.add_reaction("3️⃣")
+            await votemsg.add_reaction("4️⃣")
+            await votemsg.add_reaction("5️⃣")
+            await votemsg.add_reaction("6️⃣")
+            await votemsg.add_reaction("7️⃣")
+            await votemsg.add_reaction("8️⃣")
+            await votemsg.add_reaction("9️⃣")
+        if msgcnt == 8 :
+            votestr = f"大家來投票啦!\n問題:{question}\n:one:={msgarr[1]}\n:two:={msgarr[2]}\n:three:={msgarr[3]}\n:four:={msgarr[4]}\n:five:={msgarr[5]}\n:six:={msgarr[6]}\n:seven:={msgarr[7]}\n:eight:={msgarr[8]}"
+            votemsg = await ctx.send(votestr)
+            await votemsg.add_reaction("1️⃣")
+            await votemsg.add_reaction("2️⃣")
+            await votemsg.add_reaction("3️⃣")
+            await votemsg.add_reaction("4️⃣")
+            await votemsg.add_reaction("5️⃣")
+            await votemsg.add_reaction("6️⃣")
+            await votemsg.add_reaction("7️⃣")
+            await votemsg.add_reaction("8️⃣")
+        if msgcnt == 7 :
+            votestr = f"大家來投票啦!\n問題:{question}\n:one:={msgarr[1]}\n:two:={msgarr[2]}\n:three:={msgarr[3]}\n:four:={msgarr[4]}\n:five:={msgarr[5]}\n:six:={msgarr[6]}\n:seven:={msgarr[7]}"
+            votemsg = await ctx.send(votestr)
+            await votemsg.add_reaction("1️⃣")
+            await votemsg.add_reaction("2️⃣")
+            await votemsg.add_reaction("3️⃣")
+            await votemsg.add_reaction("4️⃣")
+            await votemsg.add_reaction("5️⃣")
+            await votemsg.add_reaction("6️⃣")
+            await votemsg.add_reaction("7️⃣")
+        if msgcnt == 6 :
+            votestr = f"大家來投票啦!\n問題:{question}\n:one:={msgarr[1]}\n:two:={msgarr[2]}\n:three:={msgarr[3]}\n:four:={msgarr[4]}\n:five:={msgarr[5]}\n:six:={msgarr[6]}"
+            votemsg = await ctx.send(votestr)
+            await votemsg.add_reaction("1️⃣")
+            await votemsg.add_reaction("2️⃣")
+            await votemsg.add_reaction("3️⃣")
+            await votemsg.add_reaction("4️⃣")
+            await votemsg.add_reaction("5️⃣")
+            await votemsg.add_reaction("6️⃣")
+        if msgcnt == 5 :
+            votestr = f"大家來投票啦!\n問題:{question}\n:one:={msgarr[1]}\n:two:={msgarr[2]}\n:three:={msgarr[3]}\n:four:={msgarr[4]}\n:five:={msgarr[5]}"
+            votemsg = await ctx.send(votestr)
+            await votemsg.add_reaction("1️⃣")
+            await votemsg.add_reaction("2️⃣")
+            await votemsg.add_reaction("3️⃣")
+            await votemsg.add_reaction("4️⃣")
+            await votemsg.add_reaction("5️⃣")
+        if msgcnt == 4 :
+            votestr = f"大家來投票啦!\n問題:{question}\n:one:={msgarr[1]}\n:two:={msgarr[2]}\n:three:={msgarr[3]}\n:four:={msgarr[4]}"
+            votemsg = await ctx.send(votestr)
+            await votemsg.add_reaction("1️⃣")
+            await votemsg.add_reaction("2️⃣")
+            await votemsg.add_reaction("3️⃣")
+            await votemsg.add_reaction("4️⃣")
+        if msgcnt == 3 :
+            votestr = f"大家來投票啦!\n問題:{question}\n:one:={msgarr[1]}\n:two:={msgarr[2]}\n:three:={msgarr[3]}"
+            votemsg = await ctx.send(votestr)
+            await votemsg.add_reaction("1️⃣")
+            await votemsg.add_reaction("2️⃣")
+            await votemsg.add_reaction("3️⃣")
+        if msgcnt == 2 :
+            votestr = f"大家來投票啦!\n問題:{question}\n:one:={msgarr[1]}\n:two:={msgarr[2]}"
+            votemsg = await ctx.send(votestr)
+            await votemsg.add_reaction("1️⃣")
+            await votemsg.add_reaction("2️⃣")
+        if msgcnt == 1 :
+            votestr = f"大家來投票啦!\n問題:{question}\n:one:={msgarr[1]}"
+            votemsg = await ctx.send(votestr)
+            await votemsg.add_reaction("1️⃣")
+            await ctx.send("不可以獨裁:clown:")
     #@client.event
 #async def on_reaction_add(reaction, user)
 def setup(bot):
