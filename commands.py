@@ -8,9 +8,11 @@ from classes import Cog_Extension
 from datetime import datetime, timezone, timedelta
 import requests
 from bs4 import BeautifulSoup
+import re
 
 cookies = {'fringeBenefits': 'yup'}
 setdata = ''
+
 tz = timezone(timedelta(hours=+8))
 with open('setting.json','r', encoding="utf8") as setfile :
     setdata = json.load(setfile)
@@ -210,6 +212,29 @@ class CmdsClass(Cog_Extension):
             votemsg = await ctx.send(votestr)
             await votemsg.add_reaction("1️⃣")
             await ctx.send("不可以獨裁:clown:")
+    @commands.command()
+    async def todo(self,ctx):
+        todomsg = ctx.message.content.split(" ", 1)
+        datepattern = re.compile(r"\d{4}/\d{2}/\d{2}")
+        if len(todomsg) == 1:
+            await ctx.send("Please enter what you want to do.")
+            return
+        else:
+            jobd = todomsg[1].split(":", 1)
+            if len(jobd) == 1:
+                await ctx.send("Please enter deadline.(yyyy/mm/dd)")
+                return
+            else:
+                job = jobd[0]
+                date = jobd[1]
+                if not datepattern.match(date):
+                    await ctx.send("Please enter correct pattern.(yyyy/mm/dd)")
+                    return
+                else:
+                    await ctx.send(f"{job} {date} write in.")
+
+
+
     #@client.event
 #async def on_reaction_add(reaction, user)
 def setup(bot):

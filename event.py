@@ -67,7 +67,14 @@ class EventClass(Cog_Extension):
             await tmpmsg.delete()
         #await self.bot.process_commands(message)
 
-
+    @commands.Cog.listener()
+    async def on_reaction_add(self, reaction,user):
+        if str(reaction)=="<:emoji_1:958910891653492836>":
+           await reaction.message.channel.send("不可以瑟瑟!")
+    @commands.Cog.listener()
+    async def on_commands_error(self,ctx, error):
+        if isinstance(error, commands.MissingRequireArgument):
+            await ctx.send("Please pass in all required arguments.")
 
 def setup(bot):
     bot.add_cog(EventClass(bot))
