@@ -12,6 +12,7 @@ import re
 
 cookies = {'fringeBenefits': 'yup'}
 setdata = ''
+tododic = {}
 
 tz = timezone(timedelta(hours=+8))
 with open('setting.json','r', encoding="utf8") as setfile :
@@ -213,7 +214,7 @@ class CmdsClass(Cog_Extension):
             await votemsg.add_reaction("1️⃣")
             await ctx.send("不可以獨裁:clown:")
     @commands.command()
-    async def todo(self,ctx):
+    async def intodo(self,ctx):
         todomsg = ctx.message.content.split(" ", 1)
         datepattern = re.compile(r"\d{4}/\d{2}/\d{2}")
         if len(todomsg) == 1:
@@ -231,7 +232,20 @@ class CmdsClass(Cog_Extension):
                     await ctx.send("Please enter correct pattern.(yyyy/mm/dd)")
                     return
                 else:
+                    if str(tododic.get(ctx.author.id))== "None":
+                        todols = []
+                        todols.append(f"{job} {date}")
+                        tododic[ctx.author.id] = todols
+                        print(tododic)
+                    else:
+                        tododic[ctx.author.id].append(f"{job} {date}")
+                        print(tododic)
                     await ctx.send(f"{job} {date} write in.")
+    @commands.command()
+    async def todolist(self,ctx):
+        await ctx.send("This is your todolist.")
+        for i in tododic[ctx.author.id]:
+            await ctx.send(i)
 
 
 

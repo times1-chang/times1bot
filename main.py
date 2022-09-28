@@ -23,7 +23,8 @@ bot = commands.Bot(command_prefix='>', intents = intents, help_command = None)
 async def on_ready():
     print('目前登入身份：', bot.user)
     
-    erochannel = bot.get_channel(setdata['erochannel'])
+    erochannel116 = bot.get_channel(setdata['erochannel116'])
+    erochannel208 = bot.get_channel(setdata['erochannel208'])
     for filename in os.listdir('.'):
         if filename.endswith('.py') and filename != 'main.py' and filename != 'classes.py':
             bot.load_extension(filename[:-3])    
@@ -42,7 +43,8 @@ async def on_ready():
             results = soup.find_all("img", class_="post-item-img", limit=10)
             image_links = list(result["src"] for result in results)
             for link in image_links:
-                await erochannel.send(link)
+                await erochannel116.send(link)
+                await erochannel208.send(link)
         await asyncio.sleep(60)
 bot.run(os.getenv('TOKEN'))
 
