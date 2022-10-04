@@ -34,13 +34,11 @@ async def on_ready():
         minute = now.strftime('%M')
         print(hour)
         if hour=="11" and minute =="00" :
+            arch = random.randint(5,766)
             print("send!")
-            mainhtml = requests.get("https://acg.lspimg.com")
+            mainhtml = requests.get(f"https://acg.lspimg.com/archives/{arch}/")
             mainsoup = BeautifulSoup(mainhtml.text, "html.parser")
-            newlink = mainsoup.find("a", class_="item-link")
-            html = requests.get(newlink["href"])
-            soup = BeautifulSoup(html.text, "html.parser")
-            results = soup.find_all("img", class_="post-item-img", limit=10)
+            results = mainsoup.find_all("img", class_="post-item-img", limit=10)
             image_links = list(result["src"] for result in results)
             for link in image_links:
                 await erochannel116.send(link)
@@ -66,6 +64,30 @@ bot.run(os.getenv('TOKEN'))
                 result = soup.find("img", class_="fit-width")
                 await erochannel.send(result["src"])
 
+    erochannel116 = bot.get_channel(setdata['erochannel116'])
+    erochannel208 = bot.get_channel(setdata['erochannel208'])
+    for filename in os.listdir('.'):
+        if filename.endswith('.py') and filename != 'main.py' and filename != 'classes.py':
+            bot.load_extension(filename[:-3])    
+    while True:
+        now = datetime.now()
+        hour = now.strftime('%H')
+        minute = now.strftime('%M')
+        print(hour)
+        if hour=="11" and minute =="00" :
+            print("send!")
+            mainhtml = requests.get("https://acg.lspimg.com")
+            mainsoup = BeautifulSoup(mainhtml.text, "html.parser")
+            newlink = mainsoup.find("a", class_="item-link")
+            html = requests.get(newlink["href"])
+            soup = BeautifulSoup(html.text, "html.parser")
+            results = soup.find_all("img", class_="post-item-img", limit=10)
+            image_links = list(result["src"] for result in results)
+            for link in image_links:
+                await erochannel116.send(link)
+                await erochannel208.send(link)
+        await asyncio.sleep(60)
+
         now = datetime.now()
         hour = now.strftime('%H')
         minute = now.strftime('%M')
@@ -79,4 +101,5 @@ bot.run(os.getenv('TOKEN'))
             image_links = list(result["src"] for result in results)
             for link in image_links:
                 await erochannel.send(link)
+
 '''
