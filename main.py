@@ -19,13 +19,14 @@ intents = discord.Intents.default()
 intents.members = True
 bot = commands.Bot(command_prefix='>', intents = intents, help_command = None)
 
-worker = 1;
 @bot.event
 async def on_ready():
     print('目前登入身份：', bot.user)
     
+    worker = 1
     erochannel116 = bot.get_channel(setdata['erochannel116'])
     erochannel208 = bot.get_channel(setdata['erochannel208'])
+    dutychannel = bot.get_channel(setdata['dutychannel'])
     for filename in os.listdir('.'):
         if filename.endswith('.py') and filename != 'main.py' and filename != 'classes.py':
             bot.load_extension(filename[:-3])    
@@ -44,14 +45,12 @@ async def on_ready():
             for link in image_links:
                 await erochannel116.send(link)
                 await erochannel208.send(link)
+        if hour=="22" and minute =="00":
+            await dutychannel.send(f"今日值日生: {worker}、{worker+1}")
+            worker +=1
+            if worker >= 34:
+                worker=1
         await asyncio.sleep(60)
-    while True:
-        if hour=="08" and minute =="50":
-           await dutychannel.send(worker,worker+1)
-           worker +=1
-           if worker >= 34:
-               worker=1
-        await asyncio.sleep(86400)
 bot.run(os.getenv('TOKEN'))
 
 '''
