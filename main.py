@@ -46,9 +46,11 @@ async def on_ready():
                 await erochannel208.send(link)
         await asyncio.sleep(60)
     while True:
-        if hour=="08" and minute =="48":
+        if hour=="08" and minute =="50":
            await dutychannel.send(worker,worker+1)
            worker +=1
+           if worker >= 34:
+               worker=1
         await asyncio.sleep(86400)
 bot.run(os.getenv('TOKEN'))
 
