@@ -19,6 +19,7 @@ intents = discord.Intents.default()
 intents.members = True
 bot = commands.Bot(command_prefix='>', intents = intents, help_command = None)
 
+worker = 1;
 @bot.event
 async def on_ready():
     print('目前登入身份：', bot.user)
@@ -44,6 +45,11 @@ async def on_ready():
                 await erochannel116.send(link)
                 await erochannel208.send(link)
         await asyncio.sleep(60)
+    while True:
+        if hour=="08" and minute =="48":
+           await dutychannel.send(worker,worker+1)
+           worker +=1
+        await asyncio.sleep(86400)
 bot.run(os.getenv('TOKEN'))
 
 '''
