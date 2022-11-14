@@ -61,6 +61,7 @@ class EventClass(Cog_Extension):
                 await message.channel.send(tmp[1])
         if "否" in message.content:
             dice = random.randint(1,10)
+            print(dice)
             if dice>5:
                 await message.channel.send("明明就是")
         if "我超弱" in message.content:
