@@ -45,11 +45,13 @@ async def on_ready():
             for link in image_links:
                 await erochannel116.send(link)
                 await erochannel208.send(link)
+'''
         if hour=="22" and minute =="00":
             await dutychannel.send(f"今日值日生: {worker}、{worker+1}")
             worker +=1
             if worker >= 34:
                 worker=1
+'''                
         await asyncio.sleep(60)
 bot.run(os.getenv('TOKEN'))
 

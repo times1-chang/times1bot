@@ -60,7 +60,9 @@ class EventClass(Cog_Extension):
                 await message.delete()
                 await message.channel.send(tmp[1])
         if "否" in message.content:
-            await message.channel.send("明明就是")
+            dice = random.randint(1,10)
+            if dice>5:
+                await message.channel.send("明明就是")
         if "我超弱" in message.content:
             tmpmsg = await message.channel.send(str(message.author.name)+"不要瞎掰好嗎")
             await asyncio.sleep(3)
