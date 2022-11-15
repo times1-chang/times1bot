@@ -48,7 +48,7 @@ async def on_ready():
             dstfile = open('dutystudent.json', 'r+',encoding="utf8")
             dstdata = json.load(dstfile)
             worker = int(dstdata['dutystudent'])
-            await testchannel.send(f"今日值日生: {worker}、{worker+1}")
+            await dutychannel.send(f"今日值日生: {worker}、{worker+1}")
             worker +=2
             if worker >= 34:
                 worker=1
