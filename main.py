@@ -9,7 +9,9 @@ from datetime import datetime, time, timedelta
 import requests
 from bs4 import BeautifulSoup
 import urllib3
+import pyGithub
 
+g = Github(os.getenv('GTOKEN'))
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 setdata = ''
 with open('setting.json','r', encoding="utf8") as setfile :
