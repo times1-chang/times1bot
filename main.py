@@ -9,9 +9,13 @@ from datetime import datetime, time, timedelta
 import requests
 from bs4 import BeautifulSoup
 import urllib3
-import pyGithub
+from github import Github
+
 
 g = Github(os.getenv('GTOKEN'))
+repo = g.get_repo('times1-chang/times1bot')
+
+
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 setdata = ''
 with open('setting.json','r', encoding="utf8") as setfile :
@@ -46,18 +50,32 @@ async def on_ready():
             for link in image_links:
                 await erochannel116.send(link)
                 await erochannel208.send(link)
-        if hour=="22" and minute =="00":
-            dstfile = open('dutystudent.json', 'r+',encoding="utf8")
-            dstdata = json.load(dstfile)
+                
+        #if hour=="22" and minute =="00":
+        while True:
+            #dstfile = open('dutystudent.json', 'r+',encoding="utf8")
+            dstjf = open('dutystudent.json', 'r+',encoding="utf8")
+            dstfile = repo.get_contents("dutystudent.json", ref="test")
+            dstdata = json.load(dstjf)
             worker = int(dstdata['dutystudent'])
-            await dutychannel.send(f"今日值日生: {worker}、{worker+1}")
+            daynumber = int(dstdata['daynumber'])
+            if daynumber >= 6:
+                break
+            await testchannel.send(f"今日值日生: {worker}、{worker+1}")
             worker +=2
             if worker >= 34:
                 worker=1
-            newdstdata = json.dumps({"dutystudent" : f"{worker}"})
-            dstfile.seek(0)
-            dstfile.write(newdstdata)
-            dstfile.close()
+            daynumber +=1
+            if daynumber ==7:
+                daynumber = 1
+            newdstdata = json.dumps({"dutystudent" : f"{worker}", "daynumber" : f"{daynumber}"})
+            
+            #newdstdata = {"dutystudent" : f"{worker}"}
+            repo.update_file(dstfile.path,"test",f"{newdstdata}", dstfile.sha, branch="test")
+            dstjf.seek(0)
+            dstjf.write(newdstdata)
+            dstjf.close()
+            print("working...")
         await asyncio.sleep(60)
 bot.run(os.getenv('TOKEN'))
 
