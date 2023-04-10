@@ -40,13 +40,13 @@ async def on_ready():
         hour = now.strftime('%H')
         minute = now.strftime('%M')
         print(hour)
-        if hour=="11" and minute =="00" :
-            arch = random.randint(5,766)
+        if hour=="12" and minute =="00" :
+            arch = random.randint(1,4335)
             print("send!")
-            mainhtml = requests.get(f"https://acg.lspimg.com/archives/{arch}/")
+            mainhtml = requests.get(f"https://acg.lspimg.com/archives/{arch}.html")
             mainsoup = BeautifulSoup(mainhtml.text, "html.parser")
-            results = mainsoup.find_all("img", class_="post-item-img", limit=10)
-            image_links = list(result["src"] for result in results)
+            results = mainsoup.find_all("a", class_="media-content", limit=10)
+            image_links = list(result["href"] for result in results)
             for link in image_links:
                 await erochannel116.send(link)
                 await erochannel208.send(link)
